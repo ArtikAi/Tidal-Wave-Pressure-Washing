@@ -1,49 +1,25 @@
-import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
+import React from 'react';
+import { Phone, Mail, MapPin, Clock, ShieldCheck, Send } from 'lucide-react';
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service: '',
-    message: ''
-  });
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically handle the form submission
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 5000);
-    setFormData({ name: '', email: '', phone: '', service: '', message: '' });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
   return (
     <section id="contact" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Get Your <span className="text-blue-600">Free Quote</span>
+            Get a Fast <span className="text-blue-600">Exterior Cleaning Quote</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready to transform your property? Contact us today for a free, no-obligation estimate on any of our professional cleaning services.
+            Tell us about your property and preferred timing. We respond the same day with a custom plan for your Orlando or Space Coast home or business.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Contact Information */}
           <div className="space-y-8">
             <div className="bg-white p-8 rounded-2xl shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
-              
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Talk With Our Team</h3>
+
               <div className="space-y-6">
                 <div className="flex items-center space-x-4">
                   <div className="bg-blue-100 p-3 rounded-full">
@@ -51,64 +27,91 @@ export default function Contact() {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900">Phone</div>
-                    <a href="tel:+15551234567" className="text-blue-600 hover:underline">(555) 123-4567</a>
+                    <a href="tel:+13212094997" className="text-blue-600 hover:underline">(321) 209-4997</a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center space-x-4">
                   <div className="bg-blue-100 p-3 rounded-full">
                     <Mail className="text-blue-600" size={20} />
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900">Email</div>
-                    <a href="mailto:info@cleanpropressure.com" className="text-blue-600 hover:underline">info@cleanpropressure.com</a>
+                    <a href="mailto:tidalwavespressure@gmail.com" className="text-blue-600 hover:underline">tidalwavespressure@gmail.com</a>
                   </div>
                 </div>
-                
-                <div className="flex items-center space-x-4">
+
+                <div className="flex items-start space-x-4">
                   <div className="bg-blue-100 p-3 rounded-full">
                     <MapPin className="text-blue-600" size={20} />
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900">Service Area</div>
-                    <div className="text-gray-600">Greater Metro Area & Surrounding Communities</div>
+                    <p className="text-gray-600">Orlando, Merritt Island, Cocoa, Cocoa Beach, Rockledge, Cape Canaveral, Satellite Beach, Viera</p>
+                    <p className="text-gray-500 mt-1">780 Plantation Road, Merritt Island, FL</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center space-x-4">
                   <div className="bg-blue-100 p-3 rounded-full">
                     <Clock className="text-blue-600" size={20} />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">Business Hours</div>
-                    <div className="text-gray-600">Mon-Sat: 8AM-6PM | Sun: By Appointment</div>
+                    <div className="font-semibold text-gray-900">Hours</div>
+                    <div className="text-gray-600">Open daily, 24 hours</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="bg-blue-100 p-3 rounded-full">
+                    <ShieldCheck className="text-blue-600" size={20} />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Peace of Mind</div>
+                    <p className="text-gray-600">Licensed and insured. Eco-friendly detergents with landscape protection on every job.</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-blue-600 text-white p-8 rounded-2xl">
-              <h4 className="text-xl font-bold mb-4">Emergency Services Available</h4>
-              <p className="mb-4">Need urgent cleaning services? We offer emergency response for commercial properties and urgent residential needs.</p>
-              <a href="tel:+15551234567" className="inline-flex items-center space-x-2 bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+            <div className="bg-blue-600 text-white p-8 rounded-2xl shadow-lg space-y-4">
+              <h4 className="text-xl font-bold">Ready When You Are</h4>
+              <p className="text-blue-50">Schedule recurring cleanings or one-time projects. Same-week appointments available for most properties.</p>
+              <a
+                href="tel:+13212094997"
+                className="inline-flex items-center space-x-2 bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600"
+              >
                 <Phone size={20} />
                 <span>Call Now</span>
               </a>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden shadow-lg">
+              <iframe
+                title="Tidal Wave Pressure Cleaning service area map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3455.232000474047!2d-80.68423072360162!3d28.327680275813883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88de104c3b3cbb41%3A0x6c59c779843f38fa!2s780%20Plantation%20Rd%2C%20Merritt%20Island%2C%20FL%2032940!5e0!3m2!1sen!2sus!4v1700000000000"
+                width="100%"
+                height="260"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
 
           {/* Quote Form */}
           <div className="bg-white p-8 rounded-2xl shadow-lg">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Request Your Free Quote</h3>
-            
-            {isSubmitted && (
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6 flex items-center space-x-3">
-                <CheckCircle className="text-green-600" size={20} />
-                <span className="text-green-800">Thank you! We'll contact you within 24 hours.</span>
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">Request My Quote</h3>
+            <p className="text-gray-600 mb-6 text-sm">
+              Form endpoint: https://formspree.io/f/FORM_ID (replace FORM_ID with your live form ID).
+            </p>
+            {/* Replace FORM_ID with your live Formspree endpoint */}
+            <form
+              action="https://formspree.io/f/FORM_ID"
+              method="POST"
+              className="space-y-6"
+            >
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -118,13 +121,11 @@ export default function Contact() {
                     type="text"
                     id="name"
                     name="name"
-                    value={formData.name}
-                    onChange={handleChange}
                     required
+                    autoComplete="name"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                   />
                 </div>
-                
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                     Phone Number *
@@ -133,14 +134,13 @@ export default function Contact() {
                     type="tel"
                     id="phone"
                     name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
                     required
+                    autoComplete="tel"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                   />
                 </div>
               </div>
-              
+
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                   Email Address *
@@ -149,35 +149,47 @@ export default function Contact() {
                   type="email"
                   id="email"
                   name="email"
-                  value={formData.email}
-                  onChange={handleChange}
                   required
+                  autoComplete="email"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                 />
               </div>
-              
+
+              <div>
+                <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-2">
+                  Service Address *
+                </label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  required
+                  autoComplete="street-address"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                />
+              </div>
+
               <div>
                 <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
-                  Service Needed
+                  Service Needed *
                 </label>
                 <select
                   id="service"
                   name="service"
-                  value={formData.service}
-                  onChange={handleChange}
+                  required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                 >
                   <option value="">Select a service</option>
-                  <option value="residential">Residential Cleaning</option>
-                  <option value="commercial">Commercial Services</option>
-                  <option value="driveway">Driveway Cleaning</option>
-                  <option value="house-washing">House Washing</option>
-                  <option value="deck-cleaning">Deck Cleaning</option>
-                  <option value="soft-washing">Soft Washing</option>
-                  <option value="other">Other</option>
+                  <option value="house-washing">House washing (soft wash)</option>
+                  <option value="roof-cleaning">Roof cleaning (soft wash)</option>
+                  <option value="driveway-walkway">Driveways & walkways</option>
+                  <option value="patio-porch">Patios & porches</option>
+                  <option value="fence-washing">Fence washing</option>
+                  <option value="commercial">Commercial exterior cleaning</option>
+                  <option value="other">Other / not sure</option>
                 </select>
               </div>
-              
+
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                   Project Details
@@ -185,20 +197,29 @@ export default function Contact() {
                 <textarea
                   id="message"
                   name="message"
-                  value={formData.message}
-                  onChange={handleChange}
                   rows={4}
-                  placeholder="Please describe your project, property size, and any specific requirements..."
+                  placeholder="Share square footage, surfaces, stains, deadlines, or access notes."
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
                 />
               </div>
-              
+
+              <div className="hidden" aria-hidden="true">
+                <label htmlFor="company">Company</label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl"
+                className="w-full bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
                 <Send size={20} />
-                <span>Send Quote Request</span>
+                <span>Send My Quote Request</span>
               </button>
             </form>
           </div>
