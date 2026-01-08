@@ -7,29 +7,34 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "install-script-check": "node scripts/install-script-check.mjs",
+    "security:check": "node scripts/security-check.mjs",
+    "test:contact-function": "tsx scripts/contact-function-test.ts",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.57.4",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
+    "@types/react": "^18.3.27",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.18",
     "eslint": "^9.9.1",
-    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.11",
-    "globals": "^15.9.0",
+    "globals": "^15.15.0",
     "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
+    "tsx": "^4.15.7",
+    "tailwindcss": "^3.4.19",
+    "ts-node": "^10.9.2",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.3.0",
-    "vite": "^7.1.7"
+    "vite": "^7.3.1"
   }
 }

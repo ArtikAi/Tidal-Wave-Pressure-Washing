@@ -1,7 +1,88 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Phone, Mail, MapPin, Clock, ShieldCheck, Send } from 'lucide-react';
+import { appendTrustedScript, sanitizePlainText } from '../utils/security';
 
 export default function Contact() {
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
+  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY;
+
+  useEffect(() => {
+    if (!turnstileSiteKey) {
+      return;
+    }
+
+    appendTrustedScript('https://challenges.cloudflare.com/turnstile/v0/api.js', {
+      id: 'turnstile-script',
+      dataAttributes: { turnstile: 'true' },
+    });
+  }, [turnstileSiteKey]);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (formStatus === 'submitting') {
+      return;
+    }
+
+    setFormStatus('submitting');
+    setStatusMessage('');
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const readValue = (key: string, maxLength = 2000) => {
+      const value = formData.get(key);
+      return typeof value === 'string' ? sanitizePlainText(value, maxLength) : '';
+    };
+
+    const payload = {
+      name: readValue('name', 80),
+      phone: readValue('phone', 20),
+      email: readValue('email', 120),
+      address: readValue('address', 200),
+      service: readValue('service', 40),
+      message: readValue('message', 2000),
+      company: readValue('company', 200),
+      turnstileToken: readValue('turnstileToken', 2048),
+    };
+
+    if (!payload.turnstileToken) {
+      setFormStatus('error');
+      setStatusMessage('Please complete the security check.');
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        setFormStatus('error');
+        setStatusMessage(result?.error || 'Unable to send your request. Please try again.');
+        const turnstile = (window as { turnstile?: { reset?: () => void } }).turnstile;
+        turnstile?.reset?.();
+        return;
+      }
+
+      form.reset();
+      const turnstile = (window as { turnstile?: { reset?: () => void } }).turnstile;
+      turnstile?.reset?.();
+      setFormStatus('success');
+      setStatusMessage('Thanks! We received your request and will follow up shortly.');
+    } catch (error) {
+      setFormStatus('error');
+      setStatusMessage('Unable to send your request. Please try again.');
+      const turnstile = (window as { turnstile?: { reset?: () => void } }).turnstile;
+      turnstile?.reset?.();
+    }
+  };
+
   return (
     <section id="contact" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -104,13 +185,11 @@ export default function Contact() {
           <div className="bg-white p-8 rounded-2xl shadow-lg">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Request My Quote</h3>
             <p className="text-gray-600 mb-6 text-sm">
-              Form endpoint: https://formspree.io/f/FORM_ID (replace FORM_ID with your live form ID).
+              Protected by Cloudflare Turnstile. We respond within one business day.
             </p>
-            {/* Replace FORM_ID with your live Formspree endpoint */}
             <form
-              action="https://formspree.io/f/FORM_ID"
-              method="POST"
               className="space-y-6"
+              onSubmit={handleSubmit}
             >
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
@@ -122,6 +201,10 @@ export default function Contact() {
                     id="name"
                     name="name"
                     required
+                    minLength={2}
+                    maxLength={80}
+                    pattern="[A-Za-z][A-Za-z .,'-]{1,79}"
+                    title="Use 2-80 characters with letters, spaces, and basic punctuation."
                     autoComplete="name"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                   />
@@ -135,6 +218,10 @@ export default function Contact() {
                     id="phone"
                     name="phone"
                     required
+                    minLength={7}
+                    maxLength={20}
+                    pattern="[0-9()+\\- ]{7,20}"
+                    title="Use 7-20 characters with digits, spaces, and + ( ) -."
                     autoComplete="tel"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                   />
@@ -150,6 +237,7 @@ export default function Contact() {
                   id="email"
                   name="email"
                   required
+                  maxLength={120}
                   autoComplete="email"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                 />
@@ -164,6 +252,8 @@ export default function Contact() {
                   id="address"
                   name="address"
                   required
+                  minLength={5}
+                  maxLength={200}
                   autoComplete="street-address"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                 />
@@ -198,6 +288,9 @@ export default function Contact() {
                   id="message"
                   name="message"
                   rows={4}
+                  minLength={10}
+                  maxLength={2000}
+                  required
                   placeholder="Share square footage, surfaces, stains, deadlines, or access notes."
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
                 />
@@ -214,12 +307,35 @@ export default function Contact() {
                 />
               </div>
 
+              {turnstileSiteKey ? (
+                <div className="flex justify-center">
+                  <div
+                    className="cf-turnstile"
+                    data-sitekey={turnstileSiteKey}
+                    data-response-field-name="turnstileToken"
+                  />
+                </div>
+              ) : (
+                <p className="text-sm text-red-600">Turnstile site key is missing.</p>
+              )}
+
+              {statusMessage ? (
+                <p
+                  className={`text-sm ${formStatus === 'success' ? 'text-green-600' : 'text-red-600'}`}
+                  role="status"
+                  aria-live="polite"
+                >
+                  {statusMessage}
+                </p>
+              ) : null}
+
               <button
                 type="submit"
+                disabled={formStatus === 'submitting' || !turnstileSiteKey}
                 className="w-full bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
                 <Send size={20} />
-                <span>Send My Quote Request</span>
+                <span>{formStatus === 'submitting' ? 'Sending...' : 'Send My Quote Request'}</span>
               </button>
             </form>
           </div>

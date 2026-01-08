@@ -19,77 +19,10 @@
     />
     <meta property="og:url" content="https://tidalwavepressurecleaning.com/" />
     <meta property="og:image" content="https://tidalwavepressurecleaning.com/og-image.jpg" />
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Tidal Wave Pressure Cleaning, LLC",
-        "image": "https://tidalwavepressurecleaning.com/og-image.jpg",
-        "url": "https://tidalwavepressurecleaning.com/",
-        "telephone": "+1-321-209-4997",
-        "email": "tidalwavespressure@gmail.com",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "780 Plantation Road",
-          "addressLocality": "Merritt Island",
-          "addressRegion": "FL",
-          "postalCode": "32940",
-          "addressCountry": "US"
-        },
-        "areaServed": [
-          "Orlando",
-          "Brevard County",
-          "Orange County",
-          "Merritt Island",
-          "Cocoa",
-          "Cocoa Beach",
-          "Rockledge",
-          "Cape Canaveral",
-          "Satellite Beach",
-          "Viera"
-        ],
-        "openingHoursSpecification": [
-          {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday",
-              "Sunday"
-            ],
-            "opens": "00:00",
-            "closes": "23:59"
-          }
-        ],
-        "sameAs": [
-          "https://www.facebook.com",
-          "https://www.instagram.com",
-          "https://www.youtube.com"
-        ],
-        "description": "Restore curb appeal with licensed and insured pressure washing professionals using biodegradable detergents and surface-matched methods."
-      }
-    </script>
+    <script src="/schema.jsonld" type="application/ld+json"></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx" defer></script>
-    <script>
-(function(d,t){
-  const v=d.createElement(t), s=d.getElementsByTagName(t)[0];
-  v.onload=function(){
-    window.voiceflow.chat.load({
-      verify:{ projectID:'YOUR_VOICEFLOW_PROJECT_ID' },
-      url:'https://general-runtime.voiceflow.com',
-      versionID:'production',
-      render:{ mode:'overlay', open:false }
-    });
-  };
-  v.src='https://cdn.voiceflow.com/widget/bundle.mjs';
-  v.type='text/javascript'; s.parentNode.insertBefore(v,s);
-})(document,'script');
-    </script>
   </body>
 </html>

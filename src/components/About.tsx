@@ -68,9 +68,9 @@ export default function About() {
 
           <div className="space-y-8">
             <img
-              src="https://images.pexels.com/photos/3964736/pexels-photo-3964736.jpeg"
-              alt="Tidal Wave Pressure Cleaning technician inspecting a roof in Cocoa Beach"
-              className="rounded-2xl shadow-lg w-full h-auto"
+              src="/images/other images/beforeandafter.png"
+              alt="Before and after pressure washing results"
+              className="rounded-2xl shadow-lg w-full max-w-md h-auto mx-auto"
               loading="lazy"
             />
 
