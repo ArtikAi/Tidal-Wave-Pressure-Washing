@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-blue-400">Tidal Wave Pressure Cleaning, LLC</h3>
+            <h3 className="text-2xl font-bold text-blue-400">Tidal Wave Pressure Cleaning</h3>
             <p className="text-gray-300">
               Restore curb appeal with licensed and insured pros using surface-safe methods and biodegradable detergents across Orlando and the Space Coast.
             </p>
@@ -87,7 +87,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-sm text-gray-400">
-            <p>&copy; {new Date().getFullYear()} Tidal Wave Pressure Cleaning, LLC. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Tidal Wave Pressure Cleaning. All rights reserved.</p>
             <div className="flex space-x-6">
               <a href="#contact" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#faq" className="hover:text-white transition-colors">FAQs</a>

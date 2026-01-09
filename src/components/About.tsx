@@ -19,7 +19,7 @@ export default function About() {
             </h2>
 
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Tidal Wave Pressure Cleaning, LLC serves Orlando and the Space Coast. We clean homes and businesses with surface-safe methods and biodegradable detergents. Each job starts with an inspection, then we choose pressure or soft wash and protect landscaping and finishes.
+              Tidal Wave Pressure Cleaning serves Orlando and the Space Coast. We clean homes and businesses with surface-safe methods and biodegradable detergents. Each job starts with an inspection, then we choose pressure or soft wash and protect landscaping and finishes.
             </p>
 
             <div className="space-y-6 mb-8">

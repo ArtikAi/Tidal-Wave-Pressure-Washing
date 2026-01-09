@@ -71,7 +71,7 @@ export default function Header({ onChatClick, chatEnabled }: HeaderProps) {
             {/* Main navigation */}
             <div className="flex justify-between items-center py-4">
               <div className="text-2xl font-bold text-blue-600">
-                Tidal Wave Pressure Cleaning, LLC
+                Tidal Wave Pressure Cleaning
               </div>
 
               {/* Desktop Navigation */}
