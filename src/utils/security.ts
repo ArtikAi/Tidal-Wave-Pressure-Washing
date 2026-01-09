@@ -1,5 +1,4 @@
 const trustedScriptSources = new Set([
-  'https://cdn.voiceflow.com/widget/bundle.mjs',
   'https://challenges.cloudflare.com/turnstile/v0/api.js',
 ]);
 

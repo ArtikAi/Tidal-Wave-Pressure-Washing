@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, Mail } from 'lucide-react';
 
-type HeaderProps = {
-  onChatClick: () => void;
-  chatEnabled: boolean;
-};
-
-export default function Header({ onChatClick, chatEnabled }: HeaderProps) {
+export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -105,14 +100,6 @@ export default function Header({ onChatClick, chatEnabled }: HeaderProps) {
                 >
                   Request My Quote
                 </a>
-                <button
-                  type="button"
-                  onClick={onChatClick}
-                  aria-pressed={chatEnabled}
-                  className="border-2 border-gray-300 text-gray-700 px-5 py-2 rounded-full hover:border-blue-600 hover:text-blue-600 transition-colors font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-                >
-                  {chatEnabled ? 'Chat Ready' : 'Chat'}
-                </button>
               </nav>
 
               {/* Mobile menu button */}
@@ -167,17 +154,6 @@ export default function Header({ onChatClick, chatEnabled }: HeaderProps) {
                 >
                   Request My Quote
                 </a>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onChatClick();
-                    setIsMenuOpen(false);
-                  }}
-                  aria-pressed={chatEnabled}
-                  className="block w-full border-2 border-gray-300 text-gray-700 px-6 py-2 rounded-full text-center hover:border-blue-600 hover:text-blue-600 transition-colors font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-                >
-                  {chatEnabled ? 'Chat Ready' : 'Chat'}
-                </button>
               </div>
             </nav>
           </div>

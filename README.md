@@ -29,10 +29,10 @@ form-action 'self';
 img-src 'self' https: data:;
 font-src 'self' data:;
 style-src 'self' 'unsafe-inline';
-script-src 'self' https://cdn.voiceflow.com https://challenges.cloudflare.com;
+script-src 'self' https://challenges.cloudflare.com;
 script-src-attr 'none';
-connect-src 'self' https://general-runtime.voiceflow.com https://challenges.cloudflare.com;
-frame-src https://www.google.com https://challenges.cloudflare.com https://general-runtime.voiceflow.com https://cdn.voiceflow.com;
+connect-src 'self' https://challenges.cloudflare.com;
+frame-src https://www.google.com https://challenges.cloudflare.com;
 worker-src 'self' blob:;
 upgrade-insecure-requests
 ```
@@ -47,10 +47,10 @@ form-action 'self';
 img-src 'self' https: data:;
 font-src 'self' data:;
 style-src 'self' 'unsafe-inline';
-script-src 'self' https://cdn.voiceflow.com https://challenges.cloudflare.com 'unsafe-inline';
+script-src 'self' https://challenges.cloudflare.com 'unsafe-inline';
 script-src-attr 'none';
-connect-src 'self' https://general-runtime.voiceflow.com https://challenges.cloudflare.com;
-frame-src https://www.google.com https://challenges.cloudflare.com https://general-runtime.voiceflow.com https://cdn.voiceflow.com;
+connect-src 'self' https://challenges.cloudflare.com;
+frame-src https://www.google.com https://challenges.cloudflare.com;
 worker-src 'self' blob:;
 upgrade-insecure-requests
 ```
@@ -61,7 +61,7 @@ Other headers in `vercel.json`: HSTS (`Strict-Transport-Security`), `X-Frame-Opt
 
 ## Security Notes
 - React output is escaped by default; `dangerouslySetInnerHTML` is blocked by lint/CI.
-- Dynamic script injection is allowlisted via `src/utils/security.ts`; the Voiceflow widget loads only after explicit user click.
+- Dynamic script injection is allowlisted via `src/utils/security.ts`; Turnstile loads on demand.
 - Run `npm run security:check` (grep for `dangerouslySetInnerHTML`) and `npm run install-script-check` (postinstall allowlist) in CI.
 
 ## Upstash Redis (Rate Limit, Duplicate Detection, Metrics)

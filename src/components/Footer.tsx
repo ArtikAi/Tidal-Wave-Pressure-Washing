@@ -80,7 +80,7 @@ export default function Footer() {
 
         <div className="bg-gray-800/60 rounded-2xl p-6 text-gray-300 text-sm space-y-2">
           <p>
-            Privacy: We collect form inputs (name, email, phone, address, service type, message) to respond to inquiries. We do not sell personal information. Third-party embeds such as maps and chat widgets may set cookies. To request data updates or removal, contact tidalwavespressure@gmail.com.
+            Privacy: We collect form inputs (name, email, phone, address, service type, message) to respond to inquiries. We do not sell personal information. Third-party embeds such as maps may set cookies. To request data updates or removal, contact tidalwavespressure@gmail.com.
           </p>
           <p>Licensed and insured. Open daily, 24 hours.</p>
         </div>

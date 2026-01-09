@@ -77,20 +77,5 @@
   </head>
   <body>
     <div id="root"></div>
-    <script>
-(function(d,t){
-  const v=d.createElement(t), s=d.getElementsByTagName(t)[0];
-  v.onload=function(){
-    window.voiceflow.chat.load({
-      verify:{ projectID:'YOUR_VOICEFLOW_PROJECT_ID' },
-      url:'https://general-runtime.voiceflow.com',
-      versionID:'production',
-      render:{ mode:'overlay', open:false }
-    });
-  };
-  v.src='https://cdn.voiceflow.com/widget/bundle.mjs';
-  v.type='text/javascript'; s.parentNode.insertBefore(v,s);
-})(document,'script');
-    </script>
-  </body>
+</body>
 </html>
