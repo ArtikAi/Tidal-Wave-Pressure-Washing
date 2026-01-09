@@ -27,7 +27,7 @@ async function incrementMetric(key: string) {
     const count = (await redis(['INCR', key])) as number;
     await redis(['EXPIRE', key, METRICS_TTL_SECONDS]);
     return { count, source: 'redis' };
-  } catch (error) {
+  } catch {
     return { count: incrementFallbackMetric(key), source: 'fallback' };
   }
 }

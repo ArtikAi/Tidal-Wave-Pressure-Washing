@@ -22,7 +22,7 @@ export async function enforceRateLimit(ipHash: string, now: number, isAllowliste
     await redis(['ZADD', `rl:${ipHash}`, now, String(now)]);
     await redis(['EXPIRE', `rl:${ipHash}`, RATE_LIMIT_TTL_SECONDS]);
     return { ok: true, source: 'redis' };
-  } catch (error) {
+  } catch {
     logWarning('rate_limit_redis_error');
     const record = fallbackRate.get(ipHash) || { count: 0, ts: now };
     if (now - record.ts > RATE_LIMIT_WINDOW_MS) {

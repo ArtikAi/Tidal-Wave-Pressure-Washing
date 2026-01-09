@@ -18,6 +18,12 @@ type ResendPayload = {
   reply_to?: string;
 };
 
+type ErrorWithDebug = Error & { debug?: Record<string, unknown> };
+
+function attachDebug(error: Error, debug: Record<string, unknown>) {
+  (error as ErrorWithDebug).debug = debug;
+}
+
 function requireEnv(name: string): string {
   const value = process.env[name];
   if (!value || value.trim() === '') throw new Error(`missing_env:${name}`);
@@ -65,13 +71,13 @@ function validateEmailConfig(fromEmail: string) {
   // Fail fast with a clear error instead of letting Resend reject it later.
   if (isFreeMailboxDomain(fromDomain)) {
     const error = new Error('invalid_from_domain');
-    (error as any).debug = {
+    attachDebug(error, {
       message:
         `CONTACT_FROM_EMAIL uses a free mailbox domain (${fromDomain}). ` +
         `Resend will reject this. Use a Resend-provided sender (e.g. *@resend.dev) ` +
         `or verify a domain you control.`,
       fromEmail,
-    };
+    });
     throw error;
   }
 }
@@ -102,7 +108,7 @@ async function resendFetch(apiKey: string, payload: ResendPayload) {
         `Resend request failed (${response.status})`;
 
       const error = new Error('email_send_failed');
-      (error as any).debug = {
+      attachDebug(error, {
         status: response.status,
         statusText: response.statusText,
         message,
@@ -113,7 +119,7 @@ async function resendFetch(apiKey: string, payload: ResendPayload) {
           to: payload.to,
           subject: payload.subject,
         },
-      };
+      });
       throw error;
     }
 
@@ -121,7 +127,7 @@ async function resendFetch(apiKey: string, payload: ResendPayload) {
   } catch (err) {
     if (err instanceof Error && err.name === 'AbortError') {
       const error = new Error('email_send_timeout');
-      (error as any).debug = { message: 'Resend request timed out' };
+      attachDebug(error, { message: 'Resend request timed out' });
       throw error;
     }
     throw err;

@@ -27,7 +27,7 @@ export async function checkDuplicate(payloadHash: string, now: number, isAllowli
       return { ok: false, source: 'redis' };
     }
     return { ok: true, source: 'redis' };
-  } catch (error) {
+  } catch {
     logWarning('duplicate_redis_error');
     const record = fallbackDuplicate.get(payloadHash);
     if (record && now - record < DUPLICATE_WINDOW_MS) {

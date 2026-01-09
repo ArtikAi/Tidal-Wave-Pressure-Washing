@@ -75,7 +75,7 @@ export default function Contact() {
       turnstile?.reset?.();
       setFormStatus('success');
       setStatusMessage('Thanks! We received your request and will follow up shortly.');
-    } catch (error) {
+    } catch {
       setFormStatus('error');
       setStatusMessage('Unable to send your request. Please try again.');
       const turnstile = (window as { turnstile?: { reset?: () => void } }).turnstile;

@@ -27,6 +27,15 @@ import {
 } from './_lib/validation';
 import type { VercelRequest, VercelResponse } from './_lib/types';
 
+type ErrorWithDebug = Error & { debug?: unknown };
+
+function getErrorDebug(error: unknown): unknown {
+  if (error instanceof Error && 'debug' in error) {
+    return (error as ErrorWithDebug).debug;
+  }
+  return undefined;
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const now = Date.now();
 
@@ -185,7 +194,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   } catch (error) {
     console.error('sendEmail failed:', {
       message: error instanceof Error ? error.message : String(error),
-      debug: (error as any)?.debug,
+      debug: getErrorDebug(error),
     });
 
     await recordDecision('rejected', 'email_send_failed', now);

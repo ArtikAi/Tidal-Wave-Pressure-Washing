@@ -53,7 +53,14 @@ export function appendTrustedScript(source: string, options: ScriptOptions = {})
 }
 
 export function sanitizePlainText(value: string, maxLength = 2000) {
-  const cleaned = value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '');
+  let cleaned = '';
+  for (let i = 0; i < value.length; i += 1) {
+    const code = value.charCodeAt(i);
+    if ((code >= 0 && code <= 31) || code === 127) {
+      continue;
+    }
+    cleaned += value[i];
+  }
   return cleaned.trim().slice(0, maxLength);
 }
 
