@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Star } from 'lucide-react';
 
 const galleryPairs = [
@@ -30,26 +30,77 @@ const galleryPairs = [
 
 const testimonials = [
   {
-    name: 'Samantha R., Viera',
+    name: 'Star Salon Spa',
     rating: 5,
-    text: 'Dark roof streaks vanished after their soft wash. The crew explained every step and rinsed everything thoroughly.',
-    service: 'Roof Cleaning'
+    text: "Best company I've hired in Brevard county. They were very professional and punctual. Riet the owner went above and beyond to meet our expectations. I would highly recommend Tidal Wave pressure cleaning for your next gig. Also, it is great to know that they are fully licensed and insured. This is a plus for their customers! Thank you, Riet",
+    service: 'Fence Cleaning'
   },
   {
-    name: 'Mark D., Cocoa Village',
+    name: 'Sarah Belmont',
     rating: 5,
-    text: 'Sidewalks and storefront look brand new. Scheduling after-hours kept our doors open. Highly recommend.',
-    service: 'Commercial Exteriors'
+    text: 'They did an amazing job pressure washing my house, driveway, and sidewalk! It all looks brand new. They were very responsive and easy to contact. The quote they gave me was the best in the area. I am so appreciative, thank you Tidal Wave Pressure Cleaning!',
+    service: 'Sidewalk Cleaning'
   },
   {
-    name: 'Angela P., Orlando',
+    name: 'Isaiah Croll',
     rating: 5,
-    text: 'They covered my plants, pre-treated stains, and followed up the next day. Outstanding service front to back.',
-    service: 'House Washing'
+    text: 'Tyler with Tidal Wave Pressure Washing was awesome to work with! Super easy to talk to, straight to the point, and quick. He got us on his schedule within two days and had our whole house and driveway done in about two hours. -- highly recommend!',
+    service: 'Power/pressure washing'
   }
 ];
 
 export default function Gallery() {
+  const beforeAfterRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const container = beforeAfterRef.current;
+    if (!container) {
+      return;
+    }
+
+    const existingScript = container.querySelector(
+      'script[src="https://sitecam.io/embed/before-after-embed.js"]'
+    );
+    if (existingScript) {
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://sitecam.io/embed/before-after-embed.js';
+    script.setAttribute('data-comparison-id', '9MwU9oqU');
+    script.async = true;
+    container.appendChild(script);
+
+    const cleanupExtraEmbeds = () => {
+      const iframes = document.querySelectorAll('iframe[src*="sitecam"]');
+      iframes.forEach((iframe) => {
+        if (container.contains(iframe)) {
+          return;
+        }
+        iframe.remove();
+      });
+    };
+
+    const applyEmbedSizing = () => {
+      const iframe = container.querySelector('iframe');
+      if (!iframe) {
+        return;
+      }
+      iframe.style.width = '100%';
+      iframe.style.maxWidth = '1200px';
+      iframe.style.height = '520px';
+      iframe.style.display = 'block';
+      cleanupExtraEmbeds();
+    };
+
+    const observer = new MutationObserver(applyEmbedSizing);
+    observer.observe(container, { childList: true, subtree: true });
+    applyEmbedSizing();
+    cleanupExtraEmbeds();
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="gallery" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -61,6 +112,31 @@ export default function Gallery() {
             From Orlando neighborhoods to Cocoa Beach storefronts, see how our pressure and soft washing restore color, safety, and curb appeal.
           </p>
         </div>
+
+        <div className="relative mb-12 w-full">
+          <div ref={beforeAfterRef} style={{ minHeight: 520 }} />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-0 left-0 right-0 h-12 bg-white"
+            style={{ transform: 'translateY(12px)' }}
+          />
+        </div>
+        <style>
+          {`
+            #gallery {
+              --sitecam-max-width: 1200px;
+            }
+            #gallery .sitecam-embed,
+            #gallery .sitecam-embed iframe,
+            #gallery iframe[src*="sitecam"] {
+              width: 100% !important;
+              max-width: var(--sitecam-max-width) !important;
+              height: 520px !important;
+              display: block !important;
+              margin: 0 auto !important;
+            }
+          `}
+        </style>
 
         {/* Before/After Gallery */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
