@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 const faqs = [
@@ -22,6 +22,79 @@ const faqs = [
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const panelRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+  useLayoutEffect(() => {
+    panelRefs.current.forEach((panel, index) => {
+      if (!panel) {
+        return;
+      }
+      const wasOpen = panel.dataset.open === 'true';
+      const isOpen = openIndex === index;
+      panel.dataset.open = isOpen ? 'true' : 'false';
+
+      if (isOpen) {
+        panel.style.visibility = 'visible';
+        panel.style.height = `${panel.scrollHeight}px`;
+      } else if (wasOpen) {
+        if (panel.style.height === 'auto' || !panel.style.height) {
+          panel.style.height = `${panel.scrollHeight}px`;
+        }
+        requestAnimationFrame(() => {
+          panel.style.height = '0px';
+        });
+      } else {
+        panel.style.visibility = 'hidden';
+        panel.style.height = '0px';
+      }
+    });
+  }, [openIndex]);
+
+  useEffect(() => {
+    const panels = panelRefs.current;
+    const handlers = panels.map((panel) => {
+      if (!panel) {
+        return null;
+      }
+      const handler = (event: TransitionEvent) => {
+        if (event.propertyName !== 'height') {
+          return;
+        }
+        const isOpen = panel.dataset.open === 'true';
+        if (isOpen) {
+          panel.style.height = 'auto';
+        } else {
+          panel.style.visibility = 'hidden';
+        }
+      };
+      panel.addEventListener('transitionend', handler);
+      return handler;
+    });
+
+    const handleResize = () => {
+      panelRefs.current.forEach((panel, index) => {
+        if (!panel || openIndex !== index) {
+          return;
+        }
+        panel.style.height = 'auto';
+        const height = panel.scrollHeight;
+        panel.style.height = `${height}px`;
+        requestAnimationFrame(() => {
+          panel.style.height = 'auto';
+        });
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      panels.forEach((panel, index) => {
+        if (!panel || !handlers[index]) {
+          return;
+        }
+        panel.removeEventListener('transitionend', handlers[index] as EventListener);
+      });
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [openIndex]);
 
   return (
     <section id="faq" className="py-20 bg-gradient-to-b from-white to-blue-50">
@@ -56,11 +129,14 @@ export default function FAQ() {
                 </button>
                 <div
                   id={`faq-panel-${index}`}
-                  className={`px-6 pb-4 text-gray-600 transition-[max-height] duration-300 ease-in-out ${
-                    isOpen ? 'max-h-96' : 'max-h-0 overflow-hidden'
+                  ref={(el) => {
+                    panelRefs.current[index] = el;
+                  }}
+                  className={`overflow-hidden text-gray-600 transition-[height,opacity] duration-300 ease-in-out ${
+                    isOpen ? 'px-6 pt-3 pb-4 opacity-100' : 'px-6 pt-0 pb-0 opacity-0'
                   }`}
                 >
-                  <p className="pt-2 leading-relaxed">{faq.answer}</p>
+                  <p className="m-0 leading-relaxed">{faq.answer}</p>
                 </div>
               </div>
             );
