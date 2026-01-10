@@ -113,7 +113,7 @@ export default function Gallery() {
           </p>
         </div>
 
-        <div className="relative mb-12 w-full">
+        <div className="relative mb-12 w-full overflow-hidden isolate" style={{ zIndex: 1 }}>
           <div ref={beforeAfterRef} style={{ minHeight: 520 }} />
           <div
             aria-hidden="true"
@@ -134,6 +134,8 @@ export default function Gallery() {
               height: 520px !important;
               display: block !important;
               margin: 0 auto !important;
+              position: relative !important;
+              z-index: 1 !important;
             }
           `}
         </style>
