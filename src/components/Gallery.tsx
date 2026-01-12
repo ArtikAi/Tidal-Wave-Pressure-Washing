@@ -58,10 +58,33 @@ export default function Gallery() {
       return;
     }
 
+    const isProd = import.meta.env.PROD;
+    const logInfo = (message: string, details?: unknown) => {
+      if (!isProd) {
+        return;
+      }
+      if (details !== undefined) {
+        console.info(`[Sitecam Embed] ${message}`, details);
+        return;
+      }
+      console.info(`[Sitecam Embed] ${message}`);
+    };
+    const logWarn = (message: string, details?: unknown) => {
+      if (!isProd) {
+        return;
+      }
+      if (details !== undefined) {
+        console.warn(`[Sitecam Embed] ${message}`, details);
+        return;
+      }
+      console.warn(`[Sitecam Embed] ${message}`);
+    };
+
     const existingScript = container.querySelector(
       'script[src="https://sitecam.io/embed/before-after-embed.js"]'
     );
     if (existingScript) {
+      logInfo('Embed script already present.');
       return;
     }
 
@@ -69,7 +92,14 @@ export default function Gallery() {
     script.src = 'https://sitecam.io/embed/before-after-embed.js';
     script.setAttribute('data-comparison-id', '9MwU9oqU');
     script.async = true;
+    script.addEventListener('load', () => {
+      logInfo('Embed script loaded.');
+    });
+    script.addEventListener('error', (event) => {
+      logWarn('Embed script failed to load. Check CSP or network.', event);
+    });
     container.appendChild(script);
+    logInfo('Embed script injected.');
 
     const cleanupExtraEmbeds = () => {
       const iframes = document.querySelectorAll('iframe[src*="sitecam"]');
@@ -98,7 +128,17 @@ export default function Gallery() {
     applyEmbedSizing();
     cleanupExtraEmbeds();
 
-    return () => observer.disconnect();
+    const timeoutId = window.setTimeout(() => {
+      const iframe = container.querySelector('iframe[src*="sitecam"]');
+      if (!iframe) {
+        logWarn('Embed iframe not detected after 3s. Likely CSP or network blocked.');
+      }
+    }, 3000);
+
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(timeoutId);
+    };
   }, []);
 
   return (
