@@ -79,6 +79,7 @@ export default function Gallery() {
       }
       console.warn(`[Sitecam Embed] ${message}`);
     };
+    let successLogTimeout: number | undefined;
 
     const existingScript = container.querySelector(
       'script[src="https://sitecam.io/embed/before-after-embed.js"]'
@@ -94,6 +95,14 @@ export default function Gallery() {
     script.async = true;
     script.addEventListener('load', () => {
       logInfo('Embed script loaded.');
+      successLogTimeout = window.setTimeout(() => {
+        const embeddedRoot =
+          container.querySelector('.sitecam-embed') ||
+          container.querySelector('iframe[src*="sitecam"]');
+        if (embeddedRoot) {
+          logInfo('Embed rendered.');
+        }
+      }, 750);
     });
     script.addEventListener('error', (event) => {
       logWarn('Embed script failed to load. Check CSP or network.', event);
@@ -112,14 +121,16 @@ export default function Gallery() {
     };
 
     const applyEmbedSizing = () => {
-      const iframe = container.querySelector('iframe');
-      if (!iframe) {
+      const iframes = Array.from(container.querySelectorAll('iframe'));
+      if (iframes.length === 0) {
         return;
       }
-      iframe.style.width = '100%';
-      iframe.style.maxWidth = '1200px';
-      iframe.style.height = '520px';
-      iframe.style.display = 'block';
+      iframes.forEach((iframe) => {
+        iframe.style.width = '100%';
+        iframe.style.maxWidth = '1200px';
+        iframe.style.height = '520px';
+        iframe.style.display = 'block';
+      });
       cleanupExtraEmbeds();
     };
 
@@ -128,16 +139,11 @@ export default function Gallery() {
     applyEmbedSizing();
     cleanupExtraEmbeds();
 
-    const timeoutId = window.setTimeout(() => {
-      const iframe = container.querySelector('iframe[src*="sitecam"]');
-      if (!iframe) {
-        logWarn('Embed iframe not detected after 3s. Likely CSP or network blocked.');
-      }
-    }, 3000);
-
     return () => {
       observer.disconnect();
-      window.clearTimeout(timeoutId);
+      if (successLogTimeout) {
+        window.clearTimeout(successLogTimeout);
+      }
     };
   }, []);
 
