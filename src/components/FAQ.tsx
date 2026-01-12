@@ -97,7 +97,10 @@ export default function FAQ() {
   }, [openIndex]);
 
   return (
-    <section id="faq" className="py-20 bg-gradient-to-b from-white to-blue-50">
+    <section
+      id="faq"
+      className="py-20 bg-gradient-to-b from-white to-blue-50 scroll-mt-28 md:scroll-mt-40"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">

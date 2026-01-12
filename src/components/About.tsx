@@ -6,11 +6,11 @@ export default function About() {
     { icon: Users, label: 'Homeowners & Businesses Served', value: '1,200+' },
     { icon: Clock, label: 'Response Time', value: 'Same Day' },
     { icon: Award, label: 'Years on the Space Coast', value: '12' },
-    { icon: Shield, label: 'Licensed & Insured', value: 'FL #TW-2216' }
+    { icon: Shield, label: '', value: 'Licensed & Insured' }
   ];
 
   return (
-    <section id="about" className="py-20 bg-gray-50">
+    <section id="about" className="py-20 bg-gray-50 scroll-mt-28 md:scroll-mt-40">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
@@ -79,7 +79,7 @@ export default function About() {
                 <div key={stat.label} className="bg-white p-6 rounded-xl shadow-md text-center">
                   <stat.icon className="text-blue-600 mx-auto mb-3" size={32} />
                   <div className="text-2xl font-bold text-gray-900 mb-1">{stat.value}</div>
-                  <div className="text-gray-600 text-sm">{stat.label}</div>
+                  {stat.label ? <div className="text-gray-600 text-sm">{stat.label}</div> : null}
                 </div>
               ))}
             </div>
