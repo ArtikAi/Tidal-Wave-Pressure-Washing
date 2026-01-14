@@ -1,4 +1,3 @@
-import React from 'react';
 import { Users, Award, Clock, Shield, Sprout, Sparkles } from 'lucide-react';
 
 export default function About() {
@@ -28,7 +27,7 @@ export default function About() {
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-2">Method Matched to the Surface</h4>
                   <p className="text-gray-600">
-                    We combine soft wash or high-pressure cleaning with prep, dwell time, and rinse plans tailored to roofs, siding, concrete, and specialty finishes.
+                    We combine soft wash or high-pressure cleaning with prep, dwell time, and rinse plans tailored to siding, porches, concrete, and specialty finishes.
                   </p>
                 </div>
               </div>

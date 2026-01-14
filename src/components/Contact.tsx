@@ -128,7 +128,10 @@ export default function Contact() {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900">Service Area</div>
-                    <p className="text-gray-600">Orlando, Merritt Island, Cocoa, Cocoa Beach, Rockledge, Cape Canaveral, Satellite Beach, Viera</p>
+                    <p className="text-gray-600">
+                      Orlando, Merritt Island, Cocoa, Cocoa Beach, Cape Canaveral, Rockledge, Satellite Beach, Melbourne,
+                      Titusville, Viera, Palm Bay
+                    </p>
                     <p className="text-gray-500 mt-1">780 Plantation Road, Merritt Island, FL</p>
                   </div>
                 </div>
@@ -271,11 +274,12 @@ export default function Contact() {
                 >
                   <option value="">Select a service</option>
                   <option value="house-washing">House washing (soft wash)</option>
-                  <option value="roof-cleaning">Roof cleaning (soft wash)</option>
-                  <option value="driveway-walkway">Driveways & walkways</option>
-                  <option value="patio-porch">Patios & porches</option>
-                  <option value="fence-washing">Fence washing</option>
-                  <option value="commercial">Commercial exterior cleaning</option>
+                  <option value="driveway-cleaning">Driveway cleaning</option>
+                  <option value="walkway-cleaning">Walkway/sidewalk cleaning</option>
+                  <option value="patio-cleaning">Patio or pool deck cleaning</option>
+                  <option value="porch-cleaning">Porch or breezeway cleaning</option>
+                  <option value="fence-cleaning">Fence cleaning</option>
+                  <option value="commercial-pressure-washing">Commercial pressure washing</option>
                   <option value="other">Other / not sure</option>
                 </select>
               </div>

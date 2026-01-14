@@ -36,7 +36,7 @@ export default function Hero() {
 
                   <p className="text-xl text-blue-100/90 leading-relaxed">
                     Licensed and insured technicians using surface-safe methods and biodegradable detergents. We match every job with the right
-                    pressure or soft wash so siding, stucco, roofs, and hardscapes shine again.
+                    pressure or soft wash so siding, stucco, fences, and hardscapes shine again.
                   </p>
 
                   <div className="grid sm:grid-cols-2 gap-4">

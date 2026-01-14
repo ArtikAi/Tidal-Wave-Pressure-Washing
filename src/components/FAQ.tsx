@@ -1,14 +1,16 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 const faqs = [
   {
-    question: 'What are the dark streaks on my roof?',
-    answer: 'They are gloeocapsa magma bacteria. Our soft-wash process removes it and helps slow regrowth so your roof keeps its color longer.'
+    question: 'How do you keep walkways from getting slippery again?',
+    answer:
+      'We pretreat algae and tannins, run surface cleaners to even out pressure, and post-treat stubborn areas so slime takes longer to return. Scheduling cleanings before rainy seasons and trimming heavy shade also reduces regrowth.'
   },
   {
     question: 'Pressure washing vs. soft washing?',
-    answer: 'Pressure washing uses high PSI for hard surfaces like concrete. Soft washing combines low PSI with detergents for siding, stucco, and roofs to avoid damage.'
+    answer:
+      'Pressure washing uses calibrated PSI for concrete, pavers, and curbing. Soft washing combines low pressure with detergents for siding, soffits, fences, porches, and screened enclosures to avoid damage while lifting organic buildup.'
   },
   {
     question: 'Do you remove old or set-in stains?',

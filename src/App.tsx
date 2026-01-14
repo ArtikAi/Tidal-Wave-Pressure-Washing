@@ -1,26 +1,5 @@
-import React from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import About from './components/About';
-import Gallery from './components/Gallery';
-import FAQ from './components/FAQ';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import HomePage from './pages/HomePage';
 
-function App() {
-  return (
-    <div className="min-h-screen">
-      <Header />
-      <Hero />
-      <Services />
-      <About />
-      <Gallery />
-      <FAQ />
-      <Contact />
-      <Footer />
-    </div>
-  );
+export default function App() {
+  return <HomePage />;
 }
-
-export default App;
